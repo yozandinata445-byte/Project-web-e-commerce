@@ -1,0 +1,115 @@
+.hero-video {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 60%);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+.hero-content {
+  z-index: 2;
+  max-width: 860px;
+  padding: 28px 20px;
+  margin: 0 16px;
+}
+
+.hero-content h1 {
+  font-size: clamp(2rem, 4vw + 1rem, 3.6rem);
+  line-height: 1.05;
+  margin-bottom: 12px;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  margin-bottom: 22px;
+  color: rgba(255,255,255,0.95);
+}
+
+.hero-content .btn {
+  --btn-bg: #f39c12;
+  --btn-bg-dark: #d98310;
+  display: inline-block;
+  background: var(--btn-bg);
+  color: white;
+  padding: 12px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(243,156,18,0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  will-change: transform;
+}
+
+.hero-content .btn:hover {
+  background: var(--btn-bg-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+}
+
+/* Small utility classes and responsive tweaks */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Accessible focus state for keyboard users */
+.hero-content .btn:focus {
+  outline: 3px solid rgba(255,255,255,0.25);
+  outline-offset: 4px;
+}
+
+/* Gentle entrance animation */
+.hero-content {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: heroFadeIn 700ms cubic-bezier(.2,.9,.3,1) 200ms forwards;
+}
+
+@keyframes heroFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive: reduce height on small devices so hero doesn't feel oversized */
+@media (max-width: 600px) {
+  .hero-video { height: 70vh; }
+  .hero-content { padding: 18px; }
+  .hero-content h1 { margin-bottom: 10px; }
+}
+
+/* Make video non-interactive on small devices and ensure it stays centered */
+@media (max-width: 420px) {
+  .background-video { object-position: center top; }
+}
+
+/* Fallback for browsers that don't support object-fit on videos */
+@supports not (object-fit: cover) {
+  .background-video { width: auto; height: 100%; }
+}
